@@ -19,7 +19,8 @@
   "dependencies": {
     "chalk": "^0.5.1",
     "request": "^2.37.0",
-    "sync-prompt": "^0.4.1"
+    "sync-prompt": "^0.4.1",
+    "upper-case": "0.0.1"
   },
   "devDependencies": {
     "chai": "^1.9.1",
