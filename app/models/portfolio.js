@@ -1,7 +1,7 @@
 'use strict';
 //var request = require('request');
 
-var Stock = require('../../app/models/stock');
+var Stock = require('./stock');
 
 function Portfolio(name){
   this.name = name;
@@ -9,25 +9,35 @@ function Portfolio(name){
 }
 
 Portfolio.prototype.addStocks = function(symbol, shares){
-  var stock = findStock(this.stocks, symbol);
+  var index = findStock(this.stocks, symbol);
 
-  if(stock){
-    stock.count += shares;
+  if(index >= 0){
+    this.stocks[index].count += shares;
   }else{
-    stock = new Stock(symbol, shares);
+    var stock = new Stock(symbol, shares);
     this.stocks.push(stock);
   }
 };
 
+Portfolio.prototype.del = function(symbol, shares){
+  var index = findStock(this.stocks, symbol);
+
+  if(index >=0){
+    this.stocks[index].count -= shares;
+  if(this.stocks[index].count <= 0){
+    this.stocks.splice(index, 1);
+    }
+  }
+};
 // PRIVATE HELPER FUNCTIONS //
 
 function findStock(stocks, symbol){
   for(var i = 0; i < stocks.length; i++){
     if(stocks[i].symbol === symbol.toUpperCase()){
-    return stocks[i];
+    return i;
     }
   }
-  return null;
+  return -1;
 }
 
 module.exports = Portfolio;

@@ -30,4 +30,19 @@ describe('Portfolio', function(){
       expect(tech.stocks[1].count).to.equal(25);
     });
   });
+
+  describe('#del', function(){
+    it('should delete stocks from stocks array',function(){
+      var tech = new Portfolio('technology');
+      tech.addStocks('aapl', 50);
+      tech.addStocks('amzn', 25);
+      tech.addStocks('aapl', 30);
+      
+      tech.del('aapl', 50);
+      tech.del('amzn', 25);
+      
+      expect(tech.stocks).to.have.length(1);
+      expect(tech.stocks[0].count).to.equal(30);
+    });
+  });
 });
